@@ -13,12 +13,30 @@
     
     <script type="text/babel">
 
-      function ChatMessage(props ) {
-        console.log(props);
+      function ChatMessage({message, sender}) {
+        // console.log(props);
+        // const message = props.message;
+        // const sender = props.sender;
+        
+        // this is called destructuring assignment, it allows us to extract values from objects and arrays and assign them to variables in a more concise way.
+        // const { message, sender } = props; 
+
+        // if(sender === "robot") {
+        //   return (
+        //     <div>
+        //       <img src="images/robot.png" width="50" />
+        //       {message}
+        //       {sender}
+        //     </div>
+        //   );
+        // }
+
         return (
           <div>
-            Hello chatbot
-            <img src="images/user.png" width="50" />
+            {sender === "robot" && <img src="images/robot.png" width="50" />}
+            {message}
+            {sender}
+            {sender === "user" && <img src="images/user.png" width="50" />}
           </div>
         );
       }
@@ -26,24 +44,43 @@
       function ChatInput() {
         return (
           <>
-            <input placeholder="Type a message..." size="30" />
+            <input 
+              placeholder="Type a message..." 
+              size="30" 
+            />
             <button>Send</button>
           </>
         );
       }
 
-      const app = (
+      function App() {
+        return(
           <>
             <ChatInput/>
-            <ChatMessage message="Hello chatbot" />
+            <ChatMessage 
+              message="Hello chatbot" 
+              sender="user"
+            />
+            <ChatMessage 
+              message="Hello! How can I help you?" 
+              sender="robot"
+            />
+            <ChatMessage 
+              message="Can you get me todays date?" 
+              sender="user"
+            />
+            <ChatMessage 
+              message="Today is September 27" 
+              sender="robot"
+            />
           </>
-      );
+        );
+      }
 
       const container = document.querySelector('.js-container');
       
-      ReactDOM.createRoot(container).render(app);
+      ReactDOM.createRoot(container).render(<App />);
 
     </script>
-
   </body>
 </html>
